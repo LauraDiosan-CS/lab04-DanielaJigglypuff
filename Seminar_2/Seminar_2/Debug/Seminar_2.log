@@ -1,0 +1,3 @@
+﻿  Labul4.cpp
+C:\Users\darabutdaniela\Desktop\Seminar_2\Seminar_2\Labul4.cpp(13,13): warning C4566: character represented by universal-character-name '\u3000' cannot be represented in the current code page (1252)
+  Seminar_2.vcxproj -> C:\Users\darabutdaniela\Desktop\Seminar_2\Debug\Seminar_2.exe

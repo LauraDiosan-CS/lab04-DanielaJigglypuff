@@ -1,0 +1,270 @@
+/////////////Repo.h 
+
+#include "Student.h"
+
+class Repo
+{
+private:
+	Student students[20];
+	int n;
+public:
+	Repo();
+	~Repo();
+	void addStudent(Student s);
+	Student* getAll();
+	int getStudent();
+
+};
+
+
+
+/////////////////Student.h
+
+
+
+#pragma once
+#include <ostream>
+using namespace std;
+
+class Student {
+private:
+
+	int nota;
+public:
+	Student();
+	Student(int nota);
+	Student(const Student& s);
+	~Student();
+	int getNota();
+	void setNota(int nota);
+	Student& operator=(const Student& s);
+	bool operator==(const Student& s);
+	friend ostream& operator<<(ostream& os, const Student& s);
+};
+
+
+
+///////////////////////////Tests.h
+
+
+
+#pragma once
+
+void test();
+
+
+
+///////////Labul4.cpp
+
+
+
+#include <iostream>
+#include "Tests.h"
+#include "Student.h"
+#include "Repo.h"
+
+using namespace std;
+
+char meniu()
+{
+    char op;
+    cout << " **********************MENIU**********************" << endl;
+    cout << "         Apasati 1 pentru afisarea notelor ;" << endl;
+    cout << "         Apasati 2 pentru a adauga o nota ; " << endl;
+    cout << "         Apasati x pentru a iesi ; " << endl;
+    cout << "                ******************* " << endl;
+    cin >> op;
+    return op;
+}
+
+int main()
+{
+    int nota;
+    Repo repo;
+    char op;
+    test();
+    Student s;
+
+    do
+    {
+        op = meniu();
+        switch (op)
+        {
+        default:
+        {  cout << " oh oh stinky" << endl;
+        break;
+        }
+        case '1':
+        {
+            cout << " Notele sunt : ";
+            for (int i = 0; i < repo.getStudent(); i++)
+            {
+                cout << repo.getAll()[i] << " , ";
+            }
+            cout << endl;
+            break;
+        }
+
+        case '2':
+        {
+            cout << " Adauga nota dorita : ";
+            cin >> nota;
+            cout << " ..... se adauga nota " << endl;
+            s.setNota(nota);
+            repo.addStudent(s);
+            cout << " Nota a fost adaugata , felicitari ! " << endl;
+            break;
+        }
+
+        case 'x':
+        {
+            cout << " Va multumesc de participare " << endl;
+            cout << "#############################################################" << endl;
+            cout << "#                  _  _                                     #" << endl;
+            cout << "#                 ( `   )_                                  #" << endl;
+            cout << "#                (    )    `)                               #" << endl;
+            cout << "#              (_   (_ .  _) _)                             #" << endl;
+            cout << "#                                             _             #" << endl;
+            cout << "#                                            (  )           #" << endl;
+            cout << "#             _ .                         ( `  ) . )        #" << endl;
+            cout << "#           (  _ )_                      (, _(  ,)_)      #" << endl;
+            cout << "#         (_  ( ,)                                        #" << endl;
+            cout << "#############################################################" << endl;
+            return 0;
+        }
+        }
+
+    } while (op);
+
+}
+
+
+
+/////////////Repo.cpp
+
+
+
+include "Repo.h"
+
+Repo::Repo() {
+	this->n = 0;
+}
+Repo::~Repo() {
+	this->n = 0;
+}
+void Repo::addStudent(Student s) {
+	this->students[this->n++] = s;
+}
+
+Student* Repo::getAll()
+{
+	return this->students;
+}
+
+int Repo::getStudent()
+{
+	return this->n;
+
+}
+
+
+
+/////////////////Student.cpp
+
+
+
+#include "Student.h"
+#include <cstddef>
+#include <string.h>
+#include <ostream>
+#include <iostream>
+
+using namespace std;
+
+Student::Student() {
+	this->nota = 0;
+}
+
+Student::Student(int nota)
+{
+
+	this->nota = nota;
+}
+
+Student::Student(const Student& s) {
+	cout << "copy constructor" << endl;
+	this->nota = s.nota;
+}
+
+Student::~Student()
+{
+	this->nota = 0;
+}
+
+
+int Student::getNota()
+{
+	return this->nota;
+}
+
+
+
+void Student::setNota(int nota) {
+	this->nota = nota;
+}
+
+Student& Student::operator=(const Student& s) {
+	this->setNota(s.nota);
+	return *this;
+}
+
+bool Student:: operator==(const Student& s) {
+	return this->nota == s.nota;
+}
+
+ostream& operator<<(ostream& os, const Student& s)
+{
+	os << s.nota;
+	return os;
+}
+
+
+
+///////////////////Tests.cpp
+
+
+
+#include <assert.h>
+#include <string.h>
+#include "Tests.h"
+#include "Repo.h"
+
+void test()
+{
+	Repo Students;
+
+	Student s1(2);
+
+	Student s2(4);
+
+	Student s3(5);
+
+	Student s4(10);
+
+	Student s5 = s4;
+
+	Student s;
+
+	// asert constructor
+	assert(s5.getNota() == 10);
+	s3.setNota(11);
+	assert(s3.getNota() == 11);
+
+	//asert repo
+	Students.addStudent(s1);
+	Students.addStudent(s2);
+
+	assert(Students.getAll()[0] == s1);
+	assert(Students.getStudent() == 2);
+
+}
